@@ -52,15 +52,12 @@ void setup() {
 
 // send IMU data
 void sendSensorData() {
-  uint8_t system, gyro, accel, mag;
-  system = gyro = accel = mag = 0;
-  bno.getCalibration(&system, &gyro, &accel, &mag);
-  calibration = bno.getCalibration()
+
   sensors_event_t event; 
   bno.getEvent(&event);
 // read orientation x, y and z eulers
 
-  float distance[3] = {system, event.acceleration.x, event.acceleration.y, event.acceleration.z};
+  float distance[3] = {event.acceleration.x, event.acceleration.y, event.acceleration.z};
 // Send 3x eulers over bluetooth as 1x byte array 
   imuCharacteristic.setValue((byte *) &distance, 16); 
 

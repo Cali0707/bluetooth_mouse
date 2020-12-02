@@ -9,13 +9,14 @@ async def main():
     characteristic = '6b90ba69-3581-4c91-9614-ccc1d2178103'
     client = await connect(device_name)
     time = 0
-    old_data = []
+    old_data = [[], [], []]
+    # print(type(old_data))
     while time < 20:
         data = await client.read_gatt_char(characteristic)
         old_data = handle_data(data, old_data)
-        await asyncio.sleep(0.1)
         time += 0.1
         print(time)
+        print(old_data)
     await client.disconnect()
 
 

@@ -9,7 +9,18 @@ def handle_data(data, old_data):
     ax, ay, az = decode_bytes(data)
     # print(old_data)
     # print('updated')
-    if len(old_data[0]) == 5:
+    print(type(old_data[0]))
+    print('len =', len(old_data[0]))
+    if len(old_data[0]) < 5:
+        old_x = old_data[0]
+        old_x.append(ax)
+        print(old_x)
+        old_y = old_data[1]
+        old_y.append(ay)
+        old_z = old_data[2]
+        old_z.append(az)
+        return [old_x, old_y, old_z]
+    else:
         ax_old_av = average(old_data[0])
         ay_old_av = average(old_data[1])
         az_old_av = average(old_data[2])
@@ -24,9 +35,4 @@ def handle_data(data, old_data):
         az_new_av = average(new_z)
         dt = 0.1
         move_mouse(ax_new_av - ax_old_av, ay_new_av - ay_old_av, az_new_av - az_old_av, dt)
-        return [ax, ay, az]
-    else:
-        old_x = old_data[0][1:]
-        old_y = old_data[1][1:]
-        old_z = old_data[2][1:]
-        return [old_x.append(ax), old_y.append(ay), old_z.append(az)]
+        return [new_x, new_y, new_z]
