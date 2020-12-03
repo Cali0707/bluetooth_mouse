@@ -11,7 +11,11 @@ async def main():
     time = 0
     old_data = [[], [], []]
     # print(type(old_data))
-    while time < 20:
+    while time < 40:
+        print("Calibrating...    {} seconds remaining".format(str(time)))
+        await asyncio.sleep(10)
+        time += 10
+    while time < 60:
         data = await client.read_gatt_char(characteristic)
         old_data = handle_data(data, old_data)
         time += 0.1
