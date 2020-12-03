@@ -13,9 +13,10 @@ async def connect(device_name):
     if ble is not None:
         client = BleakClient(ble)
         connection = await client.connect()
-        print(client)
+        # print(client)
     if connection:
         print('Connected to {}'.format(device_name))
+        await asyncio.sleep(4)
         return client
     else:
         raise ConnectionError("Failed to connect to {}".format(device_name))
