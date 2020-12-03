@@ -8,7 +8,7 @@ def move_mouse(ax, ay, az, dt):
     dz = accel_to_position(az, dt)
     x = dx
     y = -dy - dz
-    moveRel(3 * x, 3 * y)
+    moveRel(5 * x, 5 * y)
     # print('moved mouse by:', x, y)
 
 

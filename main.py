@@ -1,6 +1,8 @@
 import asyncio
 from bleak import *
 from source.connect import connect
+from source.data_handler import data_handler
+from source.filter_data import initialize_filter
 from source.handle_data import handle_data
 
 
@@ -15,12 +17,21 @@ async def main():
     #     print("Calibrating...    {} seconds remaining".format(str(time)))
     #     await asyncio.sleep(10)
     #     time += 10
-    while time < 20:
-        data = await client.read_gatt_char(characteristic)
-        old_data = handle_data(data, old_data)
-        time += 0.1
+    # while time < 20:
+    #     data = await client.read_gatt_char(characteristic)
+    #     old_data = handle_data(data, old_data)
+    #     time += 0.1
         # print(time)
         # print(old_data)
+    b, a, zi = initialize_filter()
+    la = [a] * 3
+    lb = [b] * 3
+    lz = [zi] * 3
+    while time < 20:
+        data = await client.read_gatt_char(characteristic)
+        # print('Handling Data...', lz)
+        old_data, lz = handle_data(data, old_data, la, lb, lz)
+        time += 0.1
     await client.disconnect()
 
 
