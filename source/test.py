@@ -3,7 +3,13 @@ from bleak import *
 
 
 async def run():
+    """
+    Test that the computer can see the Arduino
 
+    Checks for all visible BLE devices, then connects
+    to 3dMouse if found. Verifies that it can read data
+    off of the Arduino.
+    """
     characteristic = "6b90ba69-3581-4c91-9614-ccc1d2178103"
     ble = None
     devices = await discover()

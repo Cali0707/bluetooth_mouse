@@ -55,10 +55,10 @@ void sendSensorData() {
 
   sensors_event_t event; 
   bno.getEvent(&event);
-// read orientation x, y and z eulers
+// read acceleration x, y and z
 
   float distance[3] = {event.acceleration.x, event.acceleration.y, event.acceleration.z};
-// Send 3x eulers over bluetooth as 1x byte array 
+// Send 3x acceleration over bluetooth as 1x byte array
   imuCharacteristic.setValue((byte *) &distance, 16); 
 
 } 

@@ -1,4 +1,5 @@
 def average(L):
+    """Returns the mean of a list."""
     total = 0
     for i in L:
         total += i

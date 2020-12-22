@@ -1,4 +1,5 @@
 def accel_to_position(a, dt):
+    """Integrates acceleration to position, assuming constant acceleration."""
     return float((a * (dt ** 2)) / 2)
 
 

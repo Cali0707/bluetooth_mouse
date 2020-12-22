@@ -7,29 +7,23 @@ from source.handle_data import handle_data
 
 
 async def main():
+    """
+    Main loop for running using the 3dMouse
+
+    Connects to the appropriate device and reads data from the characteristic.
+    This is passed to handle_data.py which filters the data and moves the mouse.
+    """
     device_name = '3dMouse'
     characteristic = '6b90ba69-3581-4c91-9614-ccc1d2178103'
     client = await connect(device_name)
     time = 0
     old_data = [[], [], []]
-    # print(type(old_data))
-    # while time < 40:
-    #     print("Calibrating...    {} seconds remaining".format(str(time)))
-    #     await asyncio.sleep(10)
-    #     time += 10
-    # while time < 20:
-    #     data = await client.read_gatt_char(characteristic)
-    #     old_data = handle_data(data, old_data)
-    #     time += 0.1
-        # print(time)
-        # print(old_data)
     b, a, zi = initialize_filter()
     la = [a] * 3
     lb = [b] * 3
     lz = [zi] * 3
     while time < 20:
         data = await client.read_gatt_char(characteristic)
-        # print('Handling Data...', lz)
         old_data, lz = handle_data(data, old_data, la, lb, lz)
         time += 0.1
     await client.disconnect()

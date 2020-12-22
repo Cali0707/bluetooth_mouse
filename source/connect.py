@@ -3,6 +3,7 @@ from bleak import *
 
 
 async def connect(device_name):
+    """Finds and connects to device with device_name. Returns the Client object."""
     ble = None
     devices = await discover()
     connection = False
